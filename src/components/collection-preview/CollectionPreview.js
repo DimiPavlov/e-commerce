@@ -1,23 +1,28 @@
-import React from "react"
+import React from "react";
 
-import CollectionItem from "../collection-item/CollectionItem"
+import CollectionItem from "../collection-item/CollectionItem";
 
-import "./CollectionPreview.styles.scss"
+import {
+  CollectionPreviewContainer,
+  CollectionPreviewTitle,
+  Preview,
+} from "./CollectionPreview.styles";
 
+const CollectionPreview = ({ items, title, history, match, routeName }) => (
+  <CollectionPreviewContainer>
+    <CollectionPreviewTitle
+      onClick={() => history.push(`${match.path}/${routeName}`)}
+    >
+      {title.toUpperCase()}
+    </CollectionPreviewTitle>
+    <Preview>
+      {items
+        .filter((item, idx) => idx < 4)
+        .map((item) => (
+          <CollectionItem key={item.id} item={item} />
+        ))}
+    </Preview>
+  </CollectionPreviewContainer>
+);
 
-const CollectionPreview = ({ items, title }) => (
-
-    <div className="collection-preview">
-        <h1 className="title">{title.toUpperCase()}</h1>
-        <div className="preview">
-            {items
-            .filter((item, idx) => idx < 4)
-            .map( item  => (
-                <CollectionItem key={item.id} item={item} />
-            ))}
-        </div>
-    </div>
-)
-
-
-export default CollectionPreview
+export default CollectionPreview;
